@@ -31,7 +31,7 @@ median_steps <- median(steps_day$steps)
 median_steps <- round(median_steps, digits = 1)
 print(median_steps)
 ```
-ANSWER: The mean step is `r mean_steps` and median step is `r median_steps`.
+## Answer: The mean step is `r mean_steps` and median step is `r median_steps`.
 
 ## What is the average daily activity pattern?
 ## (1) Time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
@@ -49,7 +49,7 @@ print(max_steps_interval)
 max_steps <- round(max_steps, digits = 1)
 print(max_steps)
 ```
-ANSWER: The maximum steps taken is `r max_steps` and occurred at interval `r max_steps_interval`.
+## Answer: The maximum steps taken is `r max_steps` and occurred at interval `r max_steps_interval`.
 
 ## Imputing missing values
 ## (1) Calculate and report the total number of missing values in the dataset 
@@ -68,7 +68,7 @@ for(i in 1:length(activity_split)){
 activity_imputed <- do.call("rbind", activity_split)
 activity_imputed <- activity_imputed[order(activity_imputed$date) ,]
 ```
-ANSWER: The total number of missing value is `r total_na`.
+## Answer: The total number of missing value is `r total_na`.
 
 ## (4) Make a histogram of the total number of steps taken per day and calculate the mean/median total number of steps taken per day.
 ```{r, echo=TRUE}
