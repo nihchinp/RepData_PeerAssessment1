@@ -7,12 +7,38 @@ output:
 
 
 ## Loading and preprocessing the data
+```{r, echo=TRUE}
+setwd('C:/Users/mtsc7/Desktop/coursera')
+activity <- read.csv("activity.csv")
+summary(activity)
+str(activity)
+```
 
 
 
 ## What is mean total number of steps taken per day?
 
+## Total number of steps taken per day
+```{r, echo=TRUE}
+steps_day <- aggregate(steps ~ date, data = activity, FUN = sum, na.rm = TRUE)
+hist(steps_day$steps, xlab = "Steps each day", main = "Total number of steps taken each day", col = "blue")
+```
+##
+```{r, echo=TRUE}
+mean_steps <- mean(steps_day$steps)
+mean_steps <- round(mean_steps, digits = 1)
+print(mean_steps)
 
+median_steps <- median(steps_day$steps)
+median_steps <- round(median_steps, digits = 1)
+print(median_steps)
+```
+ANSWER: The mean step is `r mean_steps` and median step is `r median_steps`.
+
+```{r, echo=TRUE}
+mean_steps_ts <- aggregate(steps ~ interval, data = activity, FUN = mean, na.rm = TRUE)
+plot(mean_steps_ts$interval, mean_steps_ts$steps, type = "l", col = "blue", xlab = "Intervals", ylab = "Total steps per interval", main = "Number of steps per interval (averaged) (Exclude NA)")
+```
 
 ## What is the average daily activity pattern?
 
