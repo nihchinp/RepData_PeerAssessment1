@@ -94,3 +94,31 @@ print(xt, type  = "html")
 ANSWER: Imputing missing values does not change the mean value (`r imputed_mean_steps`) and insignificantly increased the median value (from `r median_steps` to `r imputed_median_steps`).
 
 ## Are there differences in activity patterns between weekdays and weekends?
+## (1) Create a new factor variable in the dataset with two levels – “weekday” and “weekend”.
+## (2) Make a panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends.
+```{r, echo=TRUE}
+activity_imputed$wktype <- ifelse(weekdays(as.Date(activity_imputed$date)) == "Saturday" | weekdays(as.Date(activity_imputed$date)) == "Sunday", "weekend", "weekday")
+
+#Average steps per interval for weekdays and weekends
+steps_weekday <- tapply(activity_imputed[activity_imputed$wktype == "weekday" ,]$steps, activity_imputed[activity_imputed$wktype == "weekday" ,]$interval, mean, na.rm = TRUE)
+steps_weekend <- tapply(activity_imputed[activity_imputed$wktype == "weekend" ,]$steps, activity_imputed[activity_imputed$wktype == "weekend" ,]$interval, mean, na.rm = TRUE)
+
+#Create a 2 panel plot for weekday and weekend
+par(mfrow=c(1,2))
+
+plot(as.numeric(names(steps_weekday)), 
+     steps_weekday, 
+     xlab = "Interval", 
+     ylab = "Steps", 
+     main = "Activity in Weekdays", 
+     type = "l")
+
+plot(as.numeric(names(steps_weekend)), 
+     steps_weekend, 
+     xlab = "Interval", 
+     ylab = "Steps", 
+     main = "Activity in Weekends", 
+     type = "l")
+```
+
+ANSWER: Activity (by number of steps) have started earlier in the weekdays and lasted over a shorter duration (by the occurance of  high peaks). However activity on weekends started slightly later and spread over longer duration.
