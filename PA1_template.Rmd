@@ -91,7 +91,7 @@ library(xtable)
 xt <- xtable(compare_mean_median)
 print(xt, type  = "html")
 ```
-ANSWER: Imputing missing values does not change the mean value (`r imputed_mean_steps`) and insignificantly increased the median value (from `r median_steps` to `r imputed_median_steps`).
+## ANSWER: Imputing missing values does not change the mean value (`r imputed_mean_steps`) and insignificantly increased the median value (from `r median_steps` to `r imputed_median_steps`).
 
 ## Are there differences in activity patterns between weekdays and weekends?
 ## (1) Create a new factor variable in the dataset with two levels – “weekday” and “weekend”.
@@ -121,4 +121,4 @@ plot(as.numeric(names(steps_weekend)),
      type = "l")
 ```
 
-ANSWER: Activity (by number of steps) have started earlier in the weekdays and lasted over a shorter duration (by the occurance of  high peaks). However activity on weekends started slightly later and spread over longer duration.
+## ANSWER: Activity (by number of steps) have started earlier in the weekdays and lasted over a shorter duration (by the occurance of  high peaks). However activity on weekends started slightly later and spread over longer duration.
