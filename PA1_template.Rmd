@@ -121,4 +121,4 @@ plot(as.numeric(names(steps_weekend)),
      type = "l")
 ```
 
-## ANSWER: Activity (by number of steps) have started earlier in the weekdays and lasted over a shorter duration (by the occurance of  high peaks). However activity on weekends started slightly later and spread over longer duration.
+## ANSWER: Activity (by number of steps) starts earlier during weekdays over a shorter duration (by occurrences of high peaks) while activity starts later during weekends and over a longer duration.
