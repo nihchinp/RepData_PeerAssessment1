@@ -14,11 +14,13 @@ str(activity)
 ```
 
 ## What is mean total number of steps taken per day?
+## (1) Calculate the total number of steps taken per day
 ## (2) Histogram of total number of steps taken per day
 ```{r, echo=TRUE}
 steps_day <- aggregate(steps ~ date, data = activity, FUN = sum, na.rm = TRUE)
 hist(steps_day$steps, xlab = "Steps each day", main = "Total number of steps taken each day", col = "blue")
 ```
+
 ## (3) Mean and median of the total number of steps taken per day
 ```{r, echo=TRUE}
 mean_steps <- mean(steps_day$steps)
@@ -50,7 +52,45 @@ print(max_steps)
 ANSWER: The maximum steps taken is `r max_steps` and occurred at interval `r max_steps_interval`.
 
 ## Imputing missing values
+## (1) Calculate and report the total number of missing values in the dataset 
+## (2) Devise a strategy for filling in all of the missing values in the dataset.
+## (3) Create a new dataset that is equal to the original dataset but with the missing data filled in.
+```{r, echo=TRUE}
+total_na <- sum(is.na(activity))
 
+Steps_Interval <- tapply(activity$steps, activity$interval, mean, na.rm = TRUE)
+activity_split <- split(activity, activity$interval)
 
+#Impute missing data for each interval
+for(i in 1:length(activity_split)){
+  activity_split[[i]]$steps[is.na(activity_split[[i]]$steps)] <- Steps_Interval[i]
+}
+activity_imputed <- do.call("rbind", activity_split)
+activity_imputed <- activity_imputed[order(activity_imputed$date) ,]
+```
+ANSWER: The total number of missing value is `r total_na`.
+
+## (4) Make a histogram of the total number of steps taken per day and calculate the mean/median total number of steps taken per day.
+```{r, echo=TRUE}
+steps_imputed <- tapply(activity_imputed$steps, activity_imputed$date, sum)
+hist(steps_imputed, xlab = "Number of Steps", main = "Number of steps per Day (After Imputed)", col = "blue")
+
+#Mean and median number of steps taken each day
+imputed_mean_steps <- mean(steps_imputed)
+imputed_mean_steps <- round(imputed_mean_steps, digits = 1)
+
+imputed_median_steps <- median(steps_imputed)
+imputed_median_steps <- round(imputed_median_steps, digits = 1)
+
+#Compare the results in a dataframe
+compare_mean_median <- data.frame(c(mean_steps, median_steps), c(imputed_mean_steps, imputed_median_steps))
+colnames(compare_mean_median) <- c("Before Impute NA", "After impute NA")
+rownames(compare_mean_median) <- c("mean", "median")
+
+library(xtable)
+xt <- xtable(compare_mean_median)
+print(xt, type  = "html")
+```
+ANSWER: Imputing missing values does not change the mean value (`r imputed_mean_steps`) and insignificantly increased the median value (from `r median_steps` to `r imputed_median_steps`).
 
 ## Are there differences in activity patterns between weekdays and weekends?
