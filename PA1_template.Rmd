@@ -120,4 +120,5 @@ plot(as.numeric(names(steps_weekend)),
      main = "Activity in Weekends", 
      type = "l")
 ```
+
 ## Answer: Activity (by number of steps) starts earlier during weekdays over a shorter duration (by occurrences of high peaks) while activity starts later during weekends and over a longer duration.
